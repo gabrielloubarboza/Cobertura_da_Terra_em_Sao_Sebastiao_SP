@@ -1,0 +1,16 @@
+<PAMDataset>
+  <PAMRasterBand band="1">
+    <CategoryNames>
+      <Category>Sem dado</Category>
+      <Category>Vegetação arbórea</Category>
+      <Category>Vegetação baixa ou aberta</Category>
+      <Category>Superfícies construídas e outras não vegetadas</Category>
+      <Category>Água</Category>
+      <Category>Areia de praia</Category>
+      <Category>Transição / mistura (incerta)</Category>
+      <Category></Category>
+      <Category></Category>
+      <Category>Pixel inválido (máscara SCL)</Category>
+    </CategoryNames>
+  </PAMRasterBand>
+</PAMDataset>

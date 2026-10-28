@@ -1,0 +1,59 @@
+{
+  "cena": "S2A_T23KMP_20260417T131303_L2A",
+  "janela_epsg32723": [
+    439940,
+    7372140,
+    444940,
+    7367140
+  ],
+  "arquivos": [
+    {
+      "arquivo": "dados/sentinel2_original/S2A_20260417_T23KMP_B02_original.tif",
+      "origem": "https://e84-earth-search-sentinel-data.s3.us-west-2.amazonaws.com/sentinel-2-c1-l2a/23/K/MP/2026/4/S2A_T23KMP_20260417T131303_L2A/B02.tif",
+      "md5": "8daea0ca731ff07ca1e915b27af01321",
+      "bytes": 319271
+    },
+    {
+      "arquivo": "dados/sentinel2_original/S2A_20260417_T23KMP_B03_original.tif",
+      "origem": "https://e84-earth-search-sentinel-data.s3.us-west-2.amazonaws.com/sentinel-2-c1-l2a/23/K/MP/2026/4/S2A_T23KMP_20260417T131303_L2A/B03.tif",
+      "md5": "e468ac5951aa7bf8177c14832fe087e3",
+      "bytes": 344274
+    },
+    {
+      "arquivo": "dados/sentinel2_original/S2A_20260417_T23KMP_B04_original.tif",
+      "origem": "https://e84-earth-search-sentinel-data.s3.us-west-2.amazonaws.com/sentinel-2-c1-l2a/23/K/MP/2026/4/S2A_T23KMP_20260417T131303_L2A/B04.tif",
+      "md5": "f3ffa151ed216ec782ecc5fe5cd7edea",
+      "bytes": 317593
+    },
+    {
+      "arquivo": "dados/sentinel2_original/S2A_20260417_T23KMP_B08_original.tif",
+      "origem": "https://e84-earth-search-sentinel-data.s3.us-west-2.amazonaws.com/sentinel-2-c1-l2a/23/K/MP/2026/4/S2A_T23KMP_20260417T131303_L2A/B08.tif",
+      "md5": "b40214c81973a29d4977d1690285c91c",
+      "bytes": 371412
+    },
+    {
+      "arquivo": "dados/sentinel2_original/S2A_20260417_T23KMP_B11_original.tif",
+      "origem": "https://e84-earth-search-sentinel-data.s3.us-west-2.amazonaws.com/sentinel-2-c1-l2a/23/K/MP/2026/4/S2A_T23KMP_20260417T131303_L2A/B11.tif",
+      "md5": "4669db7a967dcad5f4c110f2ed1fe80e",
+      "bytes": 90068
+    },
+    {
+      "arquivo": "dados/sentinel2_original/S2A_20260417_T23KMP_SCL_original.tif",
+      "origem": "https://e84-earth-search-sentinel-data.s3.us-west-2.amazonaws.com/sentinel-2-c1-l2a/23/K/MP/2026/4/S2A_T23KMP_20260417T131303_L2A/SCL.tif",
+      "md5": "de85d15b2dcbe5ac6ce331a20607ccd2",
+      "bytes": 2885
+    },
+    {
+      "arquivo": "dados/contexto/ibge_original/biomas_2025_250mil.zip",
+      "origem": "https://geoftp.ibge.gov.br/informacoes_ambientais/estudos_ambientais/biomas/vetores/2025_Biomas-e-Sistema-Costeiro-Marinho-do-Brasil-1-250000_shp.zip",
+      "md5": "d2f7714452218bcdaf5405564e8b5b9b",
+      "bytes": 13685677
+    },
+    {
+      "arquivo": "dados/contexto/ibge_original/SP_Municipios_2024.zip",
+      "origem": "https://geoftp.ibge.gov.br/organizacao_do_territorio/malhas_territoriais/malhas_municipais/municipio_2024/UFs/SP/SP_Municipios_2024.zip",
+      "md5": "9b1ea4aafd5762d58430931d8fded36f",
+      "bytes": 10501486
+    }
+  ]
+}

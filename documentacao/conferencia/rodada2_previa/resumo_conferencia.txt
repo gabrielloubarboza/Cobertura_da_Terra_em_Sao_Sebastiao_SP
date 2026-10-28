@@ -1,0 +1,9 @@
+Conferência interna exploratória (rodada 2, semente 2027) — 80 pontos estratificados por classe mapeada
+Concordância bruta (não ponderada por área): 63/80 = 78.8 %
+Concordância bruta sem a classe 6 (transição): 52/64
+  classe 1 Vegetação arbórea                                19/20 concordantes; interpretados como: {6: 1}
+  classe 2 Vegetação baixa ou aberta                         4/10 concordantes; interpretados como: {1: 1, 6: 5}
+  classe 3 Superfícies construídas e outras não vegetadas   13/18 concordantes; interpretados como: {1: 1, 6: 4}
+  classe 4 Água                                              8/ 8 concordantes; interpretados como: {}
+  classe 5 Areia de praia                                    8/ 8 concordantes; interpretados como: {}
+  classe 6 Transição / mistura (incerta)                    11/16 concordantes; interpretados como: {1: 4, 3: 1}

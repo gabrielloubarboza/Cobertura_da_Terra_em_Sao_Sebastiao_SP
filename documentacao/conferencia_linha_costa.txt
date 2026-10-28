@@ -1,0 +1,13 @@
+Conferência do limite terra-mar — classificação de 17/04/2026
+
+OSM (natural=coastline): 359 pontos a cada 10 m; distância mediana 4.9 m; P90 14.4 m; máx. 393.2 m
+IBGE Malha Municipal 2024: 359 pontos a cada 10 m; distância mediana 37.8 m; P90 47.7 m; máx. 444.9 m
+
+Área não aquática (km²):
+  espectral (classes 1, 2, 3, 5, 6; exclui água e 9) : 7.658
+  espectral incluindo os 48 pixels inválidos (areia)   : 7.663
+  OSM (área de estudo menos o lado do mar)             : 7.655
+  IBGE 1:250 000 (interseção com o município)          : 7.761
+
+Interpretação: as proporções de cobertura usam a área não aquática identificada
+espectralmente na própria data da imagem. OSM e IBGE servem só como conferência.

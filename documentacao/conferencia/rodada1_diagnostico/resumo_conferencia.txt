@@ -1,0 +1,9 @@
+Conferência interna exploratória — 80 pontos (estratificados por classe mapeada)
+Concordância bruta (não ponderada por área): 54/80 = 67.5 %
+Concordância bruta sem a classe 6 (transição): 47/64
+  classe 1 Vegetação arbórea                                20/20 concordantes; interpretados como: {}
+  classe 2 Vegetação baixa ou aberta                         2/10 concordantes; interpretados como: {1: 5, 3: 1, 6: 2}
+  classe 3 Superfícies construídas e outras não vegetadas    9/18 concordantes; interpretados como: {6: 9}
+  classe 4 Água                                              8/ 8 concordantes; interpretados como: {}
+  classe 5 Areia de praia                                    8/ 8 concordantes; interpretados como: {}
+  classe 6 Transição / mistura (incerta)                     7/16 concordantes; interpretados como: {1: 5, 3: 4}

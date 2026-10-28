@@ -1,0 +1,30 @@
+# Ambientes e caches
+__pycache__/
+*.pyc
+
+# Dados brutos (recriados por scripts/01_obter_dados.py)
+dados/sentinel2_original/
+dados/contexto/ibge_original/
+
+# Camadas externas opcionais do projeto QGIS (ver README)
+dados/externo/
+
+# Intermediários regeneráveis pelos scripts 02–12
+processamento/01_recorte_10m/B*.tif
+processamento/03_refletancia/
+processamento/04_classificacao/
+processamento/05_costa/
+processamento/06_conferencia/pontos_conferencia_rodada2.gpkg
+processamento/amostras_calibracao.gpkg
+
+# Metadados auxiliares do GDAL (o de resultados guarda os nomes das classes e fica)
+*.aux.xml
+!resultados/cobertura_classificada_20260417.tif.aux.xml
+
+# Temporários de GeoPackage/QGIS
+*.gpkg-wal
+*.gpkg-shm
+*.gpkg-journal
+*.qgs~
+*.qgz~
+*.log
