@@ -2,7 +2,7 @@
 """
 09_conferencia_e_produtos.py — Resultado da conferência e produtos finais (Etapa 2).
 
-1. Junta a interpretação visual da rodada 2 (documentacao/conferencia/rodada2/
+1. Junta a interpretação visual da rodada 2 (documentacao/diagnostico_2/
    interpretacao_visual.csv) aos pontos sorteados e calcula a concordância.
    A rodada 1 (diagnóstica) entra no GeoPackage só como registro.
    ATENÇÃO: conferência INTERNA exploratória. A referência é a mesma imagem
@@ -76,8 +76,8 @@ NOME = {k: n for k, n, *_ in CLASSES}
 # =============================================================================
 # 1. Conferência interna
 # =============================================================================
-DIR_CONF = c("documentacao", "conferencia", "rodada2")
-pontos = QgsVectorLayer(c("processamento", "06_conferencia", "pontos_conferencia_rodada2.gpkg"),
+DIR_CONF = c("documentacao", "diagnostico_2")
+pontos = QgsVectorLayer(c("processamento", "pontos_conferencia_rodada2.gpkg"),
                         "pontos", "ogr")
 with open(os.path.join(DIR_CONF, "interpretacao_visual.csv"), encoding="utf-8") as fh:
     interp = {int(r["id"]): r for r in csv.DictReader(fh)}
@@ -158,12 +158,11 @@ with edit(classes):
 rodada1 = QgsVectorLayer("Point?crs=EPSG:31983&field=id:integer&field=classe_mapeada_versao_anterior:integer"
                          "&field=classe_interpretada:integer&field=observacao:string",
                          "pontos_diagnostico_rodada1", "memory")
-with open(c("documentacao", "conferencia", "rodada1_diagnostico", "interpretacao_visual.csv"),
+with open(c("documentacao", "diagnostico_1", "interpretacao_visual.csv"),
           encoding="utf-8") as fh:
     interp1 = {int(r["id"]): r for r in csv.DictReader(fh)}
 with edit(rodada1):
-    for f in QgsVectorLayer(c("processamento", "06_conferencia", "rodada1_diagnostico",
-                              "pontos_conferencia_sorteados.gpkg"), "r1", "ogr").getFeatures():
+    for f in QgsVectorLayer(c("processamento", "pontos_conferencia_rodada1.gpkg"), "r1", "ogr").getFeatures():
         nova = QgsFeature(rodada1.fields())
         nova.setGeometry(f.geometry())
         nova.setAttributes([f["id"], f["classe_mapeada"], int(interp1[f["id"]]["classe_interpretada"]),
@@ -202,7 +201,7 @@ with edit(metadados):
         f.setAttributes([k, v])
         metadados.addFeature(f)
 
-area_estudo = QgsVectorLayer(c("dados", "area_estudo", "area_estudo_maresias.gpkg"), "area_estudo", "ogr")
+area_estudo = QgsVectorLayer(c("dados", "area_estudo_maresias.gpkg"), "area_estudo", "ogr")
 amostras = QgsVectorLayer(c("processamento", "amostras_calibracao.gpkg"), "amostras_calibracao", "ogr")
 if os.path.exists(GPKG):
     os.remove(GPKG)

@@ -114,7 +114,7 @@ de quatro setores: oeste, leste, norte e orla.
 - A correção foi avaliada **apenas nas amostras de calibração**: ARB3 subiu de 95 % para 100 % e
   ARB4 de 86 % para 98 %, sem alterar as amostras de vegetação aberta.
 - Como a rodada 1 orientou a correção, ela **deixou de ser conferência independente** e ficou
-  como registro em `documentacao/conferencia/rodada1_diagnostico/`.
+  como registro em `documentacao/diagnostico_1/`.
 
 ### Rodada 2 — conferência final (semente 2027)
 
@@ -128,7 +128,7 @@ de quatro setores: oeste, leste, norte e orla.
 - **Repetibilidade:** o script 08 foi executado duas vezes, em processos separados, e gerou os
   mesmos 80 pontos. O teste 18 repete essa verificação.
 - **Interpretação:** às cegas, sem ver a classe mapeada, por fichas com cor verdadeira e falsa-cor
-  numa janela de 150 m (`documentacao/conferencia/rodada2/fichas_pontos_NN.png`).
+  numa janela de 150 m (`documentacao/diagnostico_2/fichas_pontos_NN.png`).
   - **Quem interpretou:** Claude (assistente de IA), sobre a própria imagem Sentinel-2.
   - **Critério:** a cobertura dominante do pixel. Quando nenhuma domina, o ponto é registrado
     como 6 (mistura).
@@ -175,9 +175,8 @@ de quatro setores: oeste, leste, norte e orla.
   feições após "Dissolver" variava entre execuções.
 - Esses pontos foram interpretados às cegas, com o mesmo critério, e deram **63/80** concordantes.
   Nenhuma regra foi alterada depois dessa prévia.
-- O conjunto não pode ser sorteado de novo pelo script, por isso ficou só como registro:
-  `documentacao/conferencia/rodada2_previa/` e
-  `processamento/06_conferencia/rodada2_previa/pontos_conferencia_previa.gpkg`.
+- O conjunto não pode ser sorteado de novo pelo script, por isso ficou só como registro, guardado
+  fora deste repositório.
 - As fichas da prévia foram sobrescritas por engano numa reexecução e não estão guardadas.
 - A diferença entre 63/80 e 56/80 mostra como uma conferência de 80 pontos varia de uma amostra
   para outra. Mais um motivo para não tratar esses números como acurácia.

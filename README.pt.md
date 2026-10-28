@@ -33,7 +33,7 @@ Atlântica é o contexto ambiental do recorte.
 - **Local:** Maresias, São Sebastião/SP. O recorte reúne a encosta florestada da Serra do Mar, a
   planície costeira ocupada, a praia e o mar.
 - **Recorte:** quadrado de 3 × 3 km (9,00 km²) em SIRGAS 2000 / UTM 23S (EPSG:31983), centro em
-  45,5650° O / 23,7834° S. Polígono em `dados/area_estudo/area_estudo_maresias.gpkg`.
+  45,5650° O / 23,7834° S. Polígono em `dados/area_estudo_maresias.gpkg`.
 - **Contexto:** bioma Mata Atlântica (IBGE, 2025).
 
 ## 3. Imagem Sentinel-2
@@ -69,7 +69,7 @@ QGIS/GDAL. Cada passo tem equivalente documentado na interface do QGIS.
    interpretados por IA (Claude) sobre a própria cena Sentinel-2, sem ver a classe mapeada. Foi uma
    checagem de coerência interna: não há referência independente nem validação de campo, e o
    resultado (56 de 80 pontos concordantes) **não é acurácia temática**. Registros em
-   `documentacao/conferencia/rodada2/`.
+   `documentacao/diagnostico_2/`.
 8. **Quantificação:** área por classe a partir da contagem de pixels de 100 m²; limite terra-mar
    comparado com a linha de costa do OpenStreetMap.
 
@@ -146,15 +146,16 @@ Tabela completa: `resultados/areas_por_classe.csv`.
 ## 9. Estrutura do repositório
 
 ```
-qgis/          sao_sebastiao_cobertura.qgz (caminhos relativos; 5 layouts)
 scripts/       00–12 (PyQGIS)
-dados/         área de estudo, contexto IBGE e OSM recortados, fontes_manifesto.json (URLs + MD5)
-processamento/ pilha de reflectância, NDVI/NDWI/NDBI, SCL e máscara (usados pelo projeto) e pontos das
-               rodadas anteriores de conferência
+dados/         área de estudo, contexto IBGE e OSM recortados, linha de costa OSM original,
+               fontes_manifesto.json (URLs + MD5)
+processamento/ projeto QGIS sao_sebastiao_cobertura.qgz (caminhos relativos; 5 layouts), pilha de
+               reflectância, NDVI/NDWI/NDBI, SCL e máscara (usados pelo projeto), pontos da rodada 1
 resultados/    cobertura_classificada_20260417.tif (resultado analítico), sao_sebastiao_cobertura.gpkg,
                areas_por_classe.csv, relatório PDF e figuras/
-documentacao/  método, fontes e decisões, fontes e licenças, estatísticas das amostras, conferência
-               (fichas, interpretações, matrizes)
+documentacao/  método, fontes e decisões, fontes e licenças, estatísticas das amostras, figuras de
+               diagnóstico, diagnostico_1/ e diagnostico_2/ (fichas, interpretações e matrizes das
+               rodadas 1 e 2 da conferência)
 ```
 
 O **GeoPackage** [`resultados/sao_sebastiao_cobertura.gpkg`](resultados/sao_sebastiao_cobertura.gpkg)
@@ -193,11 +194,11 @@ set QGISPY="C:\Program Files\QGIS 3.40.8\bin\python-qgis-ltr.bat"
 
 - `scripts/00_triagem_cenas.py` refaz, de forma opcional, a escolha da cena.
 - A interpretação dos pontos é um arquivo de entrada
-  (`documentacao/conferencia/rodada2/interpretacao_visual.csv`): o script `08` só gera as fichas.
+  (`documentacao/diagnostico_2/interpretacao_visual.csv`): o script `08` só gera as fichas.
 - Os testes conferem integridade (grades, máscaras, regras, áreas, geometrias, caminhos e repetição
   do processamento). Eles não medem acurácia.
 - **Mapas finais:** as figuras de `resultados/figuras/` receberam ajustes finais de layout no projeto
-  `qgis/sao_sebastiao_cobertura.qgz`. Os scripts `03`, `10` e `12` recriam as versões-base do projeto
+  `processamento/sao_sebastiao_cobertura.qgz`. Os scripts `03`, `10` e `12` recriam as versões-base do projeto
   e dos mapas e sobrescrevem esses arquivos; para preservar a versão publicada, rode-os numa cópia.
 - **Camadas externas do projeto QGIS:** o mapa de localização usa a Malha Municipal 2020 do IBGE
   (municípios vizinhos), que não é distribuída. Para exibi-la, extraia

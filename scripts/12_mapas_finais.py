@@ -2,9 +2,9 @@
 """
 12_mapas_finais.py — Mapas finais e figuras do relatório (Etapa 3).
 
-O que faz, no projeto qgis/sao_sebastiao_cobertura.qgz:
+O que faz, no projeto processamento/sao_sebastiao_cobertura.qgz:
   1. Cria o contorno do estado de São Paulo (dissolvendo os municípios do IBGE 2024)
-     para o mapa de localização -> dados/contexto/sp_estado_ibge2024.gpkg
+     para o mapa de localização -> dados/sp_estado_ibge2024.gpkg
   2. Recria os layouts de impressão (remove os anteriores com o mesmo nome):
        "Mapa — Sentinel-2 cor verdadeira"        (A4 paisagem, portfólio)
        "Mapa — Classificação exploratória"       (A4 paisagem, portfólio)
@@ -48,10 +48,10 @@ def c(*p):
     return os.path.join(PROJETO, *p)
 
 
-ARQ = c("qgis", "sao_sebastiao_cobertura.qgz")
+ARQ = c("processamento", "sao_sebastiao_cobertura.qgz")
 FIG = c("resultados", "figuras")
 FIG_REL = c("resultados", "figuras", "relatorio")
-ESTADO = c("dados", "contexto", "sp_estado_ibge2024.gpkg")
+ESTADO = c("dados", "sp_estado_ibge2024.gpkg")
 TITULO = "Classificação Exploratória da Cobertura da Terra em Maresias — São Sebastião/SP"
 EXT_AREA = QgsRectangle(440940 - 60, 7368140 - 60, 443940 + 60, 7371140 + 60)
 CREDITOS = ("SIRGAS 2000 / UTM 23S (EPSG:31983) · pixel de 10 m\n"
@@ -70,18 +70,20 @@ from processing.core.Processing import Processing  # noqa: E402
 
 Processing.initialize()
 
-# Fonte IBM Plex Sans (SIL OFL) carregada só nesta sessão, para os textos dos layouts
+# Fonte IBM Plex Sans (SIL OFL) para os textos dos layouts: não é distribuída no repositório. Se não
+# estiver instalada (nem em scripts/relatorio/fontes/), o QGIS usa uma fonte substituta.
 for ttf in glob.glob(c("scripts", "relatorio", "fontes", "*.ttf")):
     QFontDatabase.addApplicationFont(ttf)
 FONTE = "IBM Plex Sans"
-assert FONTE in QFontDatabase().families(), "fonte IBM Plex Sans não carregada"
+if FONTE not in QFontDatabase().families():
+    print("Aviso: fonte IBM Plex Sans não instalada; os layouts usarão uma fonte substituta.")
 
 # =============================================================================
 # 1. Contorno do estado de São Paulo (contexto de localização)
 #    Interface: Vetor > Geoprocessamento > Dissolver; Reprojetar camada (EPSG:31983)
 # =============================================================================
 if not os.path.exists(ESTADO):
-    zip_mun = c("dados", "contexto", "ibge_original", "SP_Municipios_2024.zip")
+    zip_mun = c("dados", "ibge_original", "SP_Municipios_2024.zip")
     dissolvido = processing.run("native:dissolve", {
         "INPUT": "/vsizip/" + zip_mun + "/SP_Municipios_2024.shp", "FIELD": [],
         "OUTPUT": "memory:"})["OUTPUT"]
@@ -102,7 +104,7 @@ for nome in NOMES_LOC:
 estado = QgsVectorLayer(ESTADO, NOMES_LOC[0], "ogr")
 estado.setRenderer(QgsSingleSymbolRenderer(QgsFillSymbol.createSimple(
     {"color": "#EEE9DF", "outline_color": "#BFB4A2", "outline_width": "0.25"})))
-marcador = QgsVectorLayer(c("dados", "area_estudo", "area_estudo_maresias.gpkg"), NOMES_LOC[1], "ogr")
+marcador = QgsVectorLayer(c("dados", "area_estudo_maresias.gpkg"), NOMES_LOC[1], "ogr")
 gerador = QgsGeometryGeneratorSymbolLayer.create({"geometryModifier": "centroid($geometry)"})
 gerador.setSymbolType(QgsSymbol.Marker)
 gerador.setSubSymbol(QgsMarkerSymbol.createSimple(
@@ -111,7 +113,7 @@ gerador.setSubSymbol(QgsMarkerSymbol.createSimple(
 simbolo_marcador = QgsFillSymbol()
 simbolo_marcador.changeSymbolLayer(0, gerador)
 marcador.setRenderer(QgsSingleSymbolRenderer(simbolo_marcador))
-destaque = QgsVectorLayer(c("dados", "contexto", "municipio_sao_sebastiao_ibge2024.gpkg"), NOMES_LOC[2], "ogr")
+destaque = QgsVectorLayer(c("dados", "municipio_sao_sebastiao_ibge2024.gpkg"), NOMES_LOC[2], "ogr")
 destaque.setRenderer(QgsSingleSymbolRenderer(QgsFillSymbol.createSimple(
     {"color": "#AD725A", "outline_color": "#8A513B", "outline_width": "0.15"})))
 for camada in (estado, marcador, destaque):

@@ -33,7 +33,7 @@ Atlantic Forest is the environmental context of the study area.
 - **Location:** Maresias, São Sebastião, São Paulo state. The window covers the forested slopes of
   the Serra do Mar, the settled coastal plain, the beach and the sea.
 - **Window:** a 3 × 3 km square (9.00 km²) in SIRGAS 2000 / UTM 23S (EPSG:31983), centred at
-  45.5650° W / 23.7834° S. Polygon in `dados/area_estudo/area_estudo_maresias.gpkg`.
+  45.5650° W / 23.7834° S. Polygon in `dados/area_estudo_maresias.gpkg`.
 - **Context:** Atlantic Forest biome (IBGE, 2025).
 
 ## 3. Sentinel-2 imagery
@@ -66,7 +66,7 @@ step has a documented equivalent in the QGIS interface (code comments are in Por
 7. **Internal check:** 80 random points stratified by class (seed 2027), interpreted by AI (Claude)
    on the same Sentinel-2 scene without seeing the mapped class. It is an internal consistency check:
    there is no independent reference and no field validation, and the result (56 of 80 points
-   agreeing) is **not thematic accuracy**. Records in `documentacao/conferencia/rodada2/`.
+   agreeing) is **not thematic accuracy**. Records in `documentacao/diagnostico_2/`.
 8. **Quantification:** area per class from the count of 100 m² pixels; the land–sea boundary is
    compared with the OpenStreetMap coastline.
 
@@ -143,15 +143,16 @@ Full table: `resultados/areas_por_classe.csv`.
 ## 9. Repository structure
 
 ```
-qgis/          sao_sebastiao_cobertura.qgz (relative paths; 5 layouts)
 scripts/       00–12 (PyQGIS)
-dados/         study area, clipped IBGE and OSM context, fontes_manifesto.json (URLs + MD5)
-processamento/ reflectance stack, NDVI/NDWI/NDBI, SCL and mask (used by the project) and points from
-               earlier check rounds
+dados/         study area, clipped IBGE and OSM context, original OSM coastline,
+               fontes_manifesto.json (URLs + MD5)
+processamento/ QGIS project sao_sebastiao_cobertura.qgz (relative paths; 5 layouts), reflectance
+               stack, NDVI/NDWI/NDBI, SCL and mask (used by the project), round-1 check points
 resultados/    cobertura_classificada_20260417.tif (analytical result), sao_sebastiao_cobertura.gpkg,
                areas_por_classe.csv, PDF report and figuras/
-documentacao/  method, sources and decisions, sources and licences, sample statistics, check records
-               (sheets, interpretations, matrices)
+documentacao/  method, sources and decisions, sources and licences, sample statistics, diagnostic
+               figures, diagnostico_1/ and diagnostico_2/ (sheets, interpretations and matrices of
+               check rounds 1 and 2)
 ```
 
 The **GeoPackage** [`resultados/sao_sebastiao_cobertura.gpkg`](resultados/sao_sebastiao_cobertura.gpkg)
@@ -174,11 +175,11 @@ command list is in [`README.pt.md`](README.pt.md#10-reprodução).
 
 - `scripts/00_triagem_cenas.py` optionally repeats the scene selection.
 - The interpretation of the points is an input file
-  (`documentacao/conferencia/rodada2/interpretacao_visual.csv`); script `08` only creates the sheets.
+  (`documentacao/diagnostico_2/interpretacao_visual.csv`); script `08` only creates the sheets.
 - The automated tests check technical integrity (grids, masks, rules, areas, geometries, paths and
   repeatability), not accuracy.
 - **Final maps:** the figures in `resultados/figuras/` received final layout adjustments in
-  `qgis/sao_sebastiao_cobertura.qgz`. Scripts `03`, `10` and `12` rebuild the base project and maps
+  `processamento/sao_sebastiao_cobertura.qgz`. Scripts `03`, `10` and `12` rebuild the base project and maps
   and overwrite those files; run them on a copy to keep the published version.
 - **External layers in the QGIS project:** the location map uses IBGE's 2020 municipal boundaries
   (neighbouring municipalities), which are not distributed. To display them, extract

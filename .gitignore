@@ -4,7 +4,7 @@ __pycache__/
 
 # Dados brutos (recriados por scripts/01_obter_dados.py)
 dados/sentinel2_original/
-dados/contexto/ibge_original/
+dados/ibge_original/
 
 # Camadas externas opcionais do projeto QGIS (ver README)
 dados/externo/
@@ -14,8 +14,13 @@ processamento/01_recorte_10m/B*.tif
 processamento/03_refletancia/
 processamento/04_classificacao/
 processamento/05_costa/
-processamento/06_conferencia/pontos_conferencia_rodada2.gpkg
+processamento/pontos_conferencia_rodada2.gpkg
 processamento/amostras_calibracao.gpkg
+resultados/figuras/relatorio/
+
+# Registros dos testes de integridade (gerados pelos scripts 04 e 11)
+documentacao/verificacao_etapa1.txt
+documentacao/verificacao_etapa2.txt
 
 # Metadados auxiliares do GDAL (o de resultados guarda os nomes das classes e fica)
 *.aux.xml

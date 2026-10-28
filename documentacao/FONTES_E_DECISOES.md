@@ -70,7 +70,7 @@ outras duas cenas também seriam adequadas.
 
 - **Local:** Maresias, São Sebastião/SP. O recorte inclui a vila, a praia, a planície costeira e a
   encosta florestada da Serra do Mar.
-- **Polígono:** `dados/area_estudo/area_estudo_maresias.gpkg`, 3 × 3 km = 9,000 km², EPSG:31983.
+- **Polígono:** `dados/area_estudo_maresias.gpkg`, 3 × 3 km = 9,000 km², EPSG:31983.
   - X de 440 940 a 443 940 m; Y de 7 368 140 a 7 371 140 m.
   - Em graus (SIRGAS 2000): de 45,5796° O / 23,7698° S a 45,5503° O / 23,7970° S; centro em 45,5650° O / 23,7834° S.
 - **Por que este recorte:** a área reúne, em pouco espaço, contrastes visíveis na imagem: floresta

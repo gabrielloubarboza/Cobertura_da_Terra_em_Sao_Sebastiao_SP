@@ -2,7 +2,7 @@
 """
 10_atualizar_projeto_qgis.py — Atualiza o projeto QGIS com as camadas da Etapa 2.
 
-Abre qgis/sao_sebastiao_cobertura.qgz (o mesmo projeto criado pelo script 03, sem
+Abre processamento/sao_sebastiao_cobertura.qgz (o mesmo projeto criado pelo script 03, sem
 versões paralelas), preserva os grupos da Etapa 1 e:
   - acrescenta NDWI e NDBI ao grupo de índices;
   - cria o grupo "0. Classificação exploratória (Etapa 2)" no topo;
@@ -27,7 +27,7 @@ from qgis.core import (
 )
 
 PROJETO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-ARQ = os.path.join(PROJETO, "qgis", "sao_sebastiao_cobertura.qgz")
+ARQ = os.path.join(PROJETO, "processamento", "sao_sebastiao_cobertura.qgz")
 GRUPO = "0. Classificação exploratória (Etapa 2)"
 TITULO = ("Classificação Exploratória da Cobertura da Terra em Maresias — São Sebastião/SP "
           "(Sentinel-2, 17/04/2026)")
@@ -91,7 +91,7 @@ for camada in (ndwi, ndbi):
     no.setItemVisibilityChecked(False)
 
 # --- Linha de costa OSM (grupo 5) -------------------------------------------
-osm = QgsVectorLayer(c("dados", "contexto", "linha_costa_osm.gpkg"), "Linha de costa OSM (conferência)", "ogr")
+osm = QgsVectorLayer(c("dados", "linha_costa_osm.gpkg"), "Linha de costa OSM (conferência)", "ogr")
 osm.setRenderer(QgsSingleSymbolRenderer(QgsLineSymbol.createSimple(
     {"line_color": "0,190,255,255", "line_width": "0.5", "line_style": "dash"})))
 projeto.addMapLayer(osm, False)

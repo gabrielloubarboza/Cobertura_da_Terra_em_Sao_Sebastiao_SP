@@ -36,7 +36,7 @@ gdal.SetConfigOption("GDAL_DISABLE_READDIR_ON_OPEN", "EMPTY_DIR")
 PROJETO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DIR_S2 = os.path.join(PROJETO, "dados", "sentinel2_original")
 DIR_META = os.path.join(DIR_S2, "metadados")
-DIR_IBGE = os.path.join(PROJETO, "dados", "contexto", "ibge_original")
+DIR_IBGE = os.path.join(PROJETO, "dados", "ibge_original")
 
 # --- Cena escolhida (ver documentacao/FONTES_E_DECISOES.md) -------------------
 ITEM_ID = "S2A_T23KMP_20260417T131303_L2A"

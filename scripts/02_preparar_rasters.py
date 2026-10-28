@@ -7,8 +7,8 @@ Processamento do QGIS. O script apenas encadeia as mesmas ferramentas que
 podem ser executadas manualmente pela interface (ver documentacao/GUIA_DE_APRENDIZADO.md).
 
 Etapas:
-  A. Área de estudo (polígono 3 × 3 km, EPSG:31983)        -> dados/area_estudo/
-  B. Contexto oficial IBGE (município e bioma)             -> dados/contexto/
+  A. Área de estudo (polígono 3 × 3 km, EPSG:31983)        -> dados/
+  B. Contexto oficial IBGE (município e bioma)             -> dados/
   C. Reprojeção + recorte + grade de 10 m de cada banda     -> processamento/01_recorte_10m/
   D. Máscara de qualidade a partir da SCL                   -> processamento/02_mascara/
   E. Conversão DN -> reflectância, aplicando a máscara      -> processamento/03_refletancia/
@@ -73,7 +73,7 @@ def original(banda):
 #    + Calculadora de campo (nome e área).
 # =============================================================================
 print("A. Área de estudo")
-pasta("dados", "area_estudo")
+pasta("dados")
 ext = processing.run("native:extenttolayer", {"INPUT": EXTENSAO, "OUTPUT": "memory:"})["OUTPUT"]
 ext = processing.run("native:fieldcalculator", {
     "INPUT": ext, "FIELD_NAME": "nome", "FIELD_TYPE": 2, "FIELD_LENGTH": 80,
@@ -81,21 +81,21 @@ ext = processing.run("native:fieldcalculator", {
 processing.run("native:fieldcalculator", {
     "INPUT": ext, "FIELD_NAME": "area_km2", "FIELD_TYPE": 0, "FIELD_PRECISION": 3,
     "FORMULA": "$area / 1000000",
-    "OUTPUT": caminho("dados", "area_estudo", "area_estudo_maresias.gpkg")})
-AREA = caminho("dados", "area_estudo", "area_estudo_maresias.gpkg")
+    "OUTPUT": caminho("dados", "area_estudo_maresias.gpkg")})
+AREA = caminho("dados", "area_estudo_maresias.gpkg")
 
 # =============================================================================
 # B. Contexto oficial (IBGE)
 #    Interface: Vetor > "Extrair por atributo"; "Reprojetar camada"; Vetor > Geoprocessamento > Recortar.
 # =============================================================================
 print("B. Contexto IBGE")
-pasta("dados", "contexto")
-ZIP_MUN = caminho("dados", "contexto", "ibge_original", "SP_Municipios_2024.zip")
-ZIP_BIO = caminho("dados", "contexto", "ibge_original", "biomas_2025_250mil.zip")
+pasta("dados")
+ZIP_MUN = caminho("dados", "ibge_original", "SP_Municipios_2024.zip")
+ZIP_BIO = caminho("dados", "ibge_original", "biomas_2025_250mil.zip")
 mun = processing.run("native:extractbyattribute", {
     "INPUT": "/vsizip/" + ZIP_MUN + "/SP_Municipios_2024.shp",
     "FIELD": "CD_MUN", "OPERATOR": 0, "VALUE": "3550704", "OUTPUT": "memory:"})["OUTPUT"]
-MUNICIPIO = caminho("dados", "contexto", "municipio_sao_sebastiao_ibge2024.gpkg")
+MUNICIPIO = caminho("dados", "municipio_sao_sebastiao_ibge2024.gpkg")
 processing.run("native:reprojectlayer", {"INPUT": mun, "TARGET_CRS": SRC, "OUTPUT": MUNICIPIO})
 
 bio = processing.run("native:reprojectlayer", {
@@ -103,7 +103,7 @@ bio = processing.run("native:reprojectlayer", {
     "TARGET_CRS": SRC, "OUTPUT": "memory:"})["OUTPUT"]
 processing.run("native:clip", {
     "INPUT": bio, "OVERLAY": MUNICIPIO,
-    "OUTPUT": caminho("dados", "contexto", "bioma_ibge2025_sao_sebastiao.gpkg")})
+    "OUTPUT": caminho("dados", "bioma_ibge2025_sao_sebastiao.gpkg")})
 
 # =============================================================================
 # C. Reprojeção, recorte e grade comum de 10 m

@@ -3,7 +3,7 @@
 07_costa_e_areas.py — Conferência do limite terra-mar e cálculo das áreas (Etapa 2).
 
 1. Linha de costa independente: OpenStreetMap (natural=coastline), obtida pela
-   API Overpass e guardada sem alteração em dados/contexto/osm_original/.
+   API Overpass e guardada sem alteração em dados/.
 2. Compara a linha de costa espectral (borda da classe Água) com:
      - OSM (traçada sobre imagens Bing, edições de 2019–2020);
      - IBGE Malha Municipal 2024 (escala 1:250 000).
@@ -45,10 +45,10 @@ Processing.initialize()
 
 SRC = "EPSG:31983"
 FINAL = c("resultados", "cobertura_classificada_20260417.tif")
-AREA = c("dados", "area_estudo", "area_estudo_maresias.gpkg")
-MUNICIPIO = c("dados", "contexto", "municipio_sao_sebastiao_ibge2024.gpkg")
-OSM_JSON = c("dados", "contexto", "osm_original", "osm_coastline_overpass.json")
-OSM_GPKG = c("dados", "contexto", "linha_costa_osm.gpkg")
+AREA = c("dados", "area_estudo_maresias.gpkg")
+MUNICIPIO = c("dados", "municipio_sao_sebastiao_ibge2024.gpkg")
+OSM_JSON = c("dados", "osm_coastline_overpass.json")
+OSM_GPKG = c("dados", "linha_costa_osm.gpkg")
 D = c("processamento", "05_costa")
 os.makedirs(D, exist_ok=True)
 os.makedirs(os.path.dirname(OSM_JSON), exist_ok=True)

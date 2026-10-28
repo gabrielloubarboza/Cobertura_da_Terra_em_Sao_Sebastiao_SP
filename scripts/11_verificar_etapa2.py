@@ -165,10 +165,10 @@ teste(14, len(pts) == 80 and sorted(p[0] for p in pts) == list(range(1, 81)) and
       "raster no ponto, distância mínima na mesma classe %.1f m" % (contagem, dist_min))
 
 # 15. Conferência visual ---------------------------------------------------------
-with open("documentacao/conferencia/rodada2/interpretacao_visual.csv", encoding="utf-8") as fh:
+with open("documentacao/diagnostico_2/interpretacao_visual.csv", encoding="utf-8") as fh:
     interp = {int(r["id"]): int(r["classe_interpretada"]) for r in csv.DictReader(fh)}
 concord = sum(1 for p in pts if p[3] == p[4])
-with open("documentacao/conferencia/rodada2/matriz_conferencia_interna.csv", encoding="utf-8") as fh:
+with open("documentacao/diagnostico_2/matriz_conferencia_interna.csv", encoding="utf-8") as fh:
     matriz = list(csv.reader(fh))
 teste(15, len(interp) == 80 and all(interp[p[0]] == p[4] for p in pts) and int(matriz[-1][-2]) == concord,
       "Conferência: 80 interpretações registradas, iguais às do GeoPackage; concordância recalculada %d/80 "
@@ -179,7 +179,7 @@ from qgis.core import QgsApplication, QgsProject  # noqa: E402
 app = QgsApplication([], False)
 app.initQgis()
 projeto = QgsProject.instance()
-ARQ = "qgis/sao_sebastiao_cobertura.qgz"
+ARQ = "processamento/sao_sebastiao_cobertura.qgz"
 abriu = projeto.read(ARQ)
 invalidas = [l.name() for l in projeto.mapLayers().values() if not l.isValid()]
 grupos = [g.name() for g in projeto.layerTreeRoot().children()]
@@ -189,8 +189,8 @@ teste(16, abriu and not invalidas and len(grupos) == 6 and len(layouts) == 5,
 with zipfile.ZipFile(ARQ) as z:
     qgs = z.read([n for n in z.namelist() if n.endswith(".qgs")][0]).decode("utf-8")
 fontes = [f for f in re.findall(r"<datasource>(.*?)</datasource>", qgs) if f]
-teste(17, all(f.startswith("../") for f in fontes) and "C:/" not in qgs and "Users" not in qgs,
-      "Caminhos relativos: %d fontes de dados, todas iniciando por ../" % len(fontes))
+teste(17, all(f.startswith(("../", "./")) for f in fontes) and "C:/" not in qgs and "Users" not in qgs,
+      "Caminhos relativos: %d fontes de dados, todas iniciando por ../ ou ./" % len(fontes))
 
 # 18. Reprodutibilidade ------------------------------------------------------------
 # Libera os arquivos abertos neste processo: no Windows, um arquivo aberto não pode
@@ -203,7 +203,7 @@ amb = dict(os.environ)
 r06 = subprocess.run([sys.executable, "scripts/06_classificar.py"], capture_output=True, env=amb)
 depois_cls = ler(FINAL).astype(int)
 r08 = subprocess.run([sys.executable, "scripts/08_pontos_conferencia.py"], capture_output=True, env=amb)
-g2 = ogr.Open("processamento/06_conferencia/pontos_conferencia_rodada2.gpkg")
+g2 = ogr.Open("processamento/pontos_conferencia_rodada2.gpkg")
 depois_pts = sorted((f.GetField("id"), round(f.GetField("x_31983"), 2), round(f.GetField("y_31983"), 2))
                     for f in g2.GetLayer())
 if r06.returncode or r08.returncode:
@@ -217,19 +217,19 @@ obrigatorios = [FINAL, GPKG, "resultados/areas_por_classe.csv", "resultados/figu
                 "resultados/figuras/mapa_sentinel2_cor_verdadeira.png", "resultados/figuras/grafico_area_por_classe.png",
                 "processamento/NDWI_20260417.tif", "processamento/NDBI_20260417.tif",
                 "documentacao/estatisticas_amostras.csv", "documentacao/conferencia_linha_costa.txt",
-                "documentacao/conferencia/rodada2/interpretacao_visual.csv",
-                "documentacao/conferencia/rodada1_diagnostico/interpretacao_visual.csv",
-                "dados/contexto/osm_original/osm_coastline_overpass.json"]
+                "documentacao/diagnostico_2/interpretacao_visual.csv",
+                "documentacao/diagnostico_1/interpretacao_visual.csv",
+                "dados/osm_coastline_overpass.json"]
 faltando = [p for p in obrigatorios if not os.path.exists(p)]
 pastas = sorted(d for d in os.listdir(".") if os.path.isdir(d))
-teste(19, not faltando and pastas == ["dados", "documentacao", "processamento", "qgis", "resultados", "scripts"],
+teste(19, not faltando and pastas == ["dados", "documentacao", "processamento", "resultados", "scripts"],
       "Organização: arquivos esperados presentes; pastas de primeiro nível %s" % pastas)
 
 # 20. Ausência de resultados fictícios ------------------------------------------------
-readme = open("README.md", encoding="utf-8").read()
+readme = open("README.pt.md", encoding="utf-8").read()
 valores = ["%.2f" % float(por_cod[k]["area_km2"]) for k in (1, 2, 3, 4, 5, 6)]
 no_readme = all(v.replace(".", ",") in readme for v in valores)
-teste(20, ok7 and len(interp) == 80 and no_readme and "%d/80" % concord in readme,
+teste(20, ok7 and len(interp) == 80 and no_readme and ("%d/80" % concord in readme or "%d de 80" % concord in readme),
       "Sem números fictícios: áreas do README (%s km²) e concordância %d/80 vêm do raster e da tabela de conferência"
       % (", ".join(v.replace(".", ",") for v in valores), concord))
 

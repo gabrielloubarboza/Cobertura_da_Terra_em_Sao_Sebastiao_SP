@@ -2,7 +2,7 @@
 """
 03_criar_projeto_qgis.py — Monta o projeto QGIS da Etapa 1.
 
-Cria qgis/sao_sebastiao_cobertura.qgz com caminhos RELATIVOS,
+Cria processamento/sao_sebastiao_cobertura.qgz com caminhos RELATIVOS,
 SRC EPSG:31983, grupos de camadas e simbologias:
   - cor verdadeira (R=B04, G=B03, B=B02) e falsa-cor (R=B08, G=B04, B=B03),
     ambas a partir do mesmo raster empilhado de reflectância;
@@ -33,7 +33,7 @@ from qgis.core import (
 )
 
 PROJETO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-ARQ_PROJETO = os.path.join(PROJETO, "qgis", "sao_sebastiao_cobertura.qgz")
+ARQ_PROJETO = os.path.join(PROJETO, "processamento", "sao_sebastiao_cobertura.qgz")
 
 
 def caminho(*partes):
@@ -44,9 +44,9 @@ PILHA = caminho("processamento", "S2A_20260417_refletancia_B02_B03_B04_B08_B11.t
 NDVI = caminho("processamento", "NDVI_20260417.tif")
 SCL = caminho("processamento", "01_recorte_10m", "SCL_20260417_31983_10m.tif")
 MASCARA = caminho("processamento", "02_mascara", "mascara_validos_20260417.tif")
-AREA = caminho("dados", "area_estudo", "area_estudo_maresias.gpkg")
-MUNICIPIO = caminho("dados", "contexto", "municipio_sao_sebastiao_ibge2024.gpkg")
-BIOMA = caminho("dados", "contexto", "bioma_ibge2025_sao_sebastiao.gpkg")
+AREA = caminho("dados", "area_estudo_maresias.gpkg")
+MUNICIPIO = caminho("dados", "municipio_sao_sebastiao_ibge2024.gpkg")
+BIOMA = caminho("dados", "bioma_ibge2025_sao_sebastiao.gpkg")
 
 app = QgsApplication([], False)
 app.initQgis()

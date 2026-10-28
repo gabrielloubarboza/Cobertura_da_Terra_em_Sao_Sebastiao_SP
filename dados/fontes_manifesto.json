@@ -44,13 +44,13 @@
       "bytes": 2885
     },
     {
-      "arquivo": "dados/contexto/ibge_original/biomas_2025_250mil.zip",
+      "arquivo": "dados/ibge_original/biomas_2025_250mil.zip",
       "origem": "https://geoftp.ibge.gov.br/informacoes_ambientais/estudos_ambientais/biomas/vetores/2025_Biomas-e-Sistema-Costeiro-Marinho-do-Brasil-1-250000_shp.zip",
       "md5": "d2f7714452218bcdaf5405564e8b5b9b",
       "bytes": 13685677
     },
     {
-      "arquivo": "dados/contexto/ibge_original/SP_Municipios_2024.zip",
+      "arquivo": "dados/ibge_original/SP_Municipios_2024.zip",
       "origem": "https://geoftp.ibge.gov.br/organizacao_do_territorio/malhas_territoriais/malhas_municipais/municipio_2024/UFs/SP/SP_Municipios_2024.zip",
       "md5": "9b1ea4aafd5762d58430931d8fded36f",
       "bytes": 10501486

@@ -25,7 +25,7 @@ from qgis.core import (
 
 gdal.UseExceptions()
 PROJETO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-ARQ_PROJETO = os.path.join(PROJETO, "qgis", "sao_sebastiao_cobertura.qgz")
+ARQ_PROJETO = os.path.join(PROJETO, "processamento", "sao_sebastiao_cobertura.qgz")
 FIG = os.path.join(PROJETO, "documentacao", "figuras")
 NODATA = -9999
 linhas = []
@@ -95,12 +95,12 @@ def primeira_geometria(caminho):
     return feicao.GetGeometryRef().Clone()
 
 
-geom_area = primeira_geometria(c("dados", "area_estudo", "area_estudo_maresias.gpkg"))
-geom_mun = primeira_geometria(c("dados", "contexto", "municipio_sao_sebastiao_ibge2024.gpkg"))
+geom_area = primeira_geometria(c("dados", "area_estudo_maresias.gpkg"))
+geom_mun = primeira_geometria(c("dados", "municipio_sao_sebastiao_ibge2024.gpkg"))
 terra = geom_area.Intersection(geom_mun).GetArea() / 1e6
 registro(abs(geom_area.GetArea() / 1e6 - 9.0) < 1e-6, "Área de estudo = 9,000 km² (3 × 3 km), EPSG:31983")
 registro(terra > 6, "Parte terrestre da área de estudo dentro de São Sebastião (IBGE): %.2f km²" % terra)
-ds_bio = ogr.Open(c("dados", "contexto", "bioma_ibge2025_sao_sebastiao.gpkg"))
+ds_bio = ogr.Open(c("dados", "bioma_ibge2025_sao_sebastiao.gpkg"))
 nomes = set()
 for f in ds_bio.GetLayer():
     if f.GetGeometryRef().Intersects(geom_area):

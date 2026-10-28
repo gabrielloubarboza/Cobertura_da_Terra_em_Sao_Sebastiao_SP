@@ -6,8 +6,8 @@ Rodadas:
   - Rodada 1 (semente 2026, diagnóstica): revelou o efeito de borda do NDBI
     (bordas de floresta mapeadas como vegetação aberta). A regra R2 foi corrigida
     e, por isso, esses pontos deixaram de ser conferência independente. Arquivos
-    em processamento/06_conferencia/rodada1_diagnostico/ e
-    documentacao/conferencia/rodada1_diagnostico/.
+    em processamento/pontos_conferencia_rodada1.gpkg e
+    documentacao/diagnostico_1/.
   - Rodada 2 (semente 2027, final): novo sorteio sobre a classificação corrigida,
     excluindo também um raio de 15 m em torno dos pontos da rodada 1. Os estratos
     são ordenados por classe antes do sorteio, o que torna o resultado repetível.
@@ -26,8 +26,8 @@ Regras:
   - a numeração final é embaralhada (semente fixa) para que a interpretação
     seja feita sem saber a classe mapeada ("às cegas").
 Saídas:
-  processamento/06_conferencia/pontos_conferencia_rodada2.gpkg
-  documentacao/conferencia/rodada2/fichas_pontos_NN.png  (cor verdadeira | falsa-cor,
+  processamento/pontos_conferencia_rodada2.gpkg
+  documentacao/diagnostico_2/fichas_pontos_NN.png  (cor verdadeira | falsa-cor,
   janela de 150 × 150 m, pixel central destacado, sem a classe mapeada)
 
 Equivalente na interface:
@@ -67,12 +67,12 @@ from processing.core.Processing import Processing  # noqa: E402
 Processing.initialize()
 
 SEMENTE = 2027
-RODADA1 = c("processamento", "06_conferencia", "rodada1_diagnostico", "pontos_conferencia_sorteados.gpkg")
+RODADA1 = c("processamento", "pontos_conferencia_rodada1.gpkg")
 ALOCACAO = {1: 20, 2: 10, 3: 18, 4: 8, 5: 8, 6: 16}
 FINAL = c("resultados", "cobertura_classificada_20260417.tif")
 AMOSTRAS = c("processamento", "amostras_calibracao.gpkg")
-D = c("processamento", "06_conferencia")
-FICHAS = c("documentacao", "conferencia", "rodada2")
+D = c("processamento")
+FICHAS = c("documentacao", "diagnostico_2")
 SAIDA = os.path.join(D, "pontos_conferencia_rodada2.gpkg")
 os.makedirs(D, exist_ok=True)
 os.makedirs(FICHAS, exist_ok=True)
